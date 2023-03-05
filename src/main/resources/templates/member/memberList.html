@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::title},~{::section})}" xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+    <div align="center">
+        <h2>회원 목록</h2>
+        <table class="table table-hover" style="width: 1100px;">
+            <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">UserId</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <th scope="row" th:text="${member.id}">1</th>
+                <td th:text="${member.userId}">userId</td>
+                <td th:text="${member.name}">name</td>
+                <td th:text="${member.phone}">phone</td>
+                <td th:text="${member.address}">address</td>
+                <td>
+                    <a href="/member/listModify" class="btn btn-primary" th:href="@{/member/{id}/listModify(id=${member.id}, nowPage=${pageObject.nowPage})}" role="button">수정</a>
+                    <a href="/member/memberDelete" class="btn btn-primary" th:href="@{/member/{id}/delete(id=${member.id})}" th:text="삭제" role="button">삭제</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <block th:if="${pageObject.previous > 1}">
+                    <li class="page-item"><a class="page-link" href="#" th:href="@{/member/list/{nowPage}(nowPage=${pageObject.previous})}" >Previous</a></li>
+                </block>
+                <block th:unless="${pageObject.previous > 1}">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                </block>
+                <th:block th:each="page : ${pageObject.pages}">
+                    <th:block th:if="${page eq pageObject.nowPage}">
+                        <li class="page-item active"><a class="page-link" href="#" th:href="@{/member/list/{nowPage}(nowPage=${page})}" th:text="${page}">1</a></li>
+                    </th:block>
+                    <th:block th:unless="${page eq pageObject.nowPage}">
+                        <li class="page-item"><a class="page-link" href="#" th:href="@{/member/list/{nowPage}(nowPage=${page})}" th:text="${page}">1</a></li>
+                    </th:block>
+                </th:block>
+                <block th:if="${pageObject.lastPage} > ${pageObject.next}">
+                    <li class="page-item"><a class="page-link" href="#" th:href="@{/member/list/{nowPage}(nowPage=${pageObject.next})}">Next</a></li>
+                </block>
+                <block th:unless="${pageObject.lastPage} > ${pageObject.next}">
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                </block>
+            </ul>
+        </nav>
+
+</section>
+</body>
+</html>

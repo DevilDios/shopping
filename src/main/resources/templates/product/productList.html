@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+        <div class="product-list" style="width: 1200px; margin-left: auto; margin-right: auto;">
+            <h2>상품 조회</h2>
+            <th:block th:each="product : ${products}">
+                <a href="#" th:href="@{/product/detail/{id}(id=${product.id})}" class="product" style="display: block; width: 175px; text-align: center; text-decoration:none; color: black; float:left;
+        margin-left: 25px; margin-right: 25px; margin-bottom: 100px;">
+
+                    <img src="/images/1.jpg" th:src="|/images/${product.image.UUIDName}|" width="175px;">
+
+                    <div class="product-name" style="margin-top: 20px; margin-bottom: 4px;" th:text="${product.name}">
+                        Sunglasses
+                    </div>
+                    <div class="product-price" th:text="${product.price}">
+                        49,000
+                    </div>
+                </a>
+
+            </th:block>
+            <div class="clearfix"></div>
+        </div>
+</section>
+</body>
+</html>

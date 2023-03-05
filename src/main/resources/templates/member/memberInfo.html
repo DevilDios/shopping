@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::title},~{::section})}" xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{memberInfo.pageName}">회원정보</title>
+</head>
+<body>
+<section align="center">
+
+    <h2 th:text="#{memberInfo.pageName}">회원정보</h2>
+
+        <label th:for="userId" th:text="#{memberInfo.id}">아이디</label>
+        <input type="text" th:id="userId" th:name="userId" th:value="${member.userId}" disabled readonly>
+        <br><br>
+
+        <label th:for="password" th:text="#{memberInfo.password}">비밀번호</label>
+        <input type="password" th:id="password" th:name="password" th:value="${member.password}" disabled>
+        <br><br>
+
+        <label th:for="name" th:text="#{memberInfo.name}">이름</label>
+        <input type="text" th:id="name" th:name="name" th:value="${member.name}" disabled readonly>
+        <br><br>
+
+        <label th:for="address" th:text="#{memberInfo.address}">주소</label>
+        <input type="text" th:id="address" th:name="address" th:value="${member.address}" disabled readonly>
+        <br><br>
+
+        <label th:for="phone" th:text="#{memberInfo.phone}">전화번호</label>
+        <input type="text" th:id="phone" th:name="phone" th:value="${member.phone}" disabled readonly>
+        <br><br>
+
+        <button onclick="location.href='memberModify'" th:onclick="|location.href='@{/member/{userId}/modify(userId=${member.userId})}'|"   class="btn btn-primary" th:text="#{memberInfo.joinButton}">수정</button>
+        <button onclick="location.href='items.html'" th:onclick="|location.href='@{/}'|" type="button" class="btn btn-primary" th:text="#{memberInfo.cancelButton}">취소</button>
+
+</section>
+</body>
+</html>

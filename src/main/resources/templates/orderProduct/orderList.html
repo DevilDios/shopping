@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::title},~{::section})}" xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+
+
+    <div align="center">
+        <h2>주문 목록</h2>
+        <table class="table table-hover" style="width: 1100px;">
+            <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Image</th>
+                <th scope="col">UserId</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">버튼</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="orderProduct : ${orderProducts}">
+            <tr>
+                <th scope="row" th:text="${orderProduct.order.member.id}">No.</th>
+                <td><img th:src="@{|/images/${orderProduct.product.image.UUIDName}|}" style="width: 50px;"></td>
+                <td th:text="${orderProduct.order.member.userId}">UserId</td>
+                <td th:text="${#temporals.format(orderProduct.order.orderDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${orderProduct.order.orderStatus}">Status</td>
+                <td>
+                <a th:if="${orderProduct.order.orderStatus.name() == 'ORDER'}" href="#" th:href="'javascript:cancel('+${orderProduct.id}+')'"
+                   class="btn btn-primary">CANCEL</a>
+                </td>
+<!--                <td>-->
+<!--                    <a href="/member/listModify" class="btn btn-primary" th:href="@{/member/{id}/listModify(id=${member.id}, nowPage=${pageObject.nowPage})}" role="button">수정</a>-->
+<!--                    <a href="/member/memberDelete" class="btn btn-primary" th:href="@{/member/{id}/delete(id=${member.id})}" th:text="삭제" role="button">삭제</a>-->
+<!--                </td>-->
+            </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+    <script>
+    function cancel(id) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/order/" + id + "/cancel");
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+
+<!--<script>-->
+<!--    function cancel(id) {-->
+<!--        var form = document.createElement("form");-->
+<!--        form.setAttribute("method", "post");-->
+<!--        form.setAttribute("action", "/order/" + id + "/cancel");-->
+<!--        document.body.appendChild(form);-->
+<!--        form.submit();-->
+<!--    }-->
+<!--</script>-->
+
+
+</section>
+</body>
+</html>

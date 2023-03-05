@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/shop
+    username: sa
+    password: 1
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+#      ddl-auto: create #주석처리 해야 db 리셋 안됨
+    properties:
+      hibernate:
+#        format_sql: true
+#        show_sql: true
+
+  messages:
+    basename: messages, messages_error
+
+
+
+logging.lever:
+  org.hibernate.orm.jdbc.bind: trace
+
+
+
+server:
+  port: 8081
+
+  error:
+    include-exception: false
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+  servlet:
+    session:
+      tracking-modes: cookie
+
+file:
+  dir: C:/Users/bloss/Desktop/IntelliJ WorkSpace/shopping/src/main/resources/static/images/

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::title},~{::section})}" xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section align="center">
+
+    <h2 th:text="#{login.form.pageName}">로그인</h2>
+
+    <form action="/login/form" th:action th:object="${loginForm}" method="post">
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="error-color" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
+
+        <label th:for="userId" th:text="#{login.form.id}">아이디</label>
+        <input type="text"  th:field="*{userId}" autofocus>
+        <div th:errorclass="error-color" th:errors="*{userId}"/>
+        <br><br>
+        <label th:for="password" th:text="#{login.form.password}">비밀번호</label>
+        <input type="password" th:field="*{password}">
+        <div th:errorclass="error-color" th:errors="*{password}"/>
+        <br><br>
+        <button type="submit" th:text="#{login.form.loginButton}" class="btn btn-primary">로그인</button>
+        <button onclick="location.href='items.html'" th:onclick="|location.href='@{/}'|" type="button" class="btn btn-primary" th:text="#{login.form.cancelButton}">취소</button>
+
+    </form>
+
+</section>
+</body>
+</html>
